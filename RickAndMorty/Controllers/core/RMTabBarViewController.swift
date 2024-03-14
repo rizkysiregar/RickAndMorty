@@ -7,7 +7,7 @@
 
 import UIKit
 
-// make class final mean it cannot be inherited
+/// Controller to house tabs and root tab controller
 final class RMTabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
