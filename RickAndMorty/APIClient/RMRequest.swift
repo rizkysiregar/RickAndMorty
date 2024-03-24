@@ -71,6 +71,8 @@ final class RMRequest {
         }
     
     ///"next": "https://rickandmortyapi.com/api/character/?page=2",
+    /// Attempt to create request
+    ///     Parameter url: URL to parse
     convenience init?(url: URL) {
         let string = url.absoluteString
         if !string.contains(Constant.baseUrl) {
@@ -81,10 +83,17 @@ final class RMRequest {
         if trimmed.contains("/"){
             let components = trimmed.components(separatedBy: "/")
             if !components.isEmpty {
-                // this going to be the endpoint exmple: character
+                /// this going to be the endpoint exmple: character
                 let endpointString = components[0]
+                
+                /// path components is use when got the other param from url like id for detail character
+                var pathComponents: [String] = []
+                if components.count > 1 {
+                    pathComponents = components
+                    pathComponents.removeFirst()
+                }
                 if let rmEndpoint = RMEndpoint(rawValue: endpointString) {
-                    self.init(endpoint: rmEndpoint)
+                    self.init(endpoint: rmEndpoint, pathComponents: pathComponents)
                     return
                 }
             }
