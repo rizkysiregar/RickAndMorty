@@ -14,6 +14,7 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
     private let valueLabel: UILabel =  {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
         label.text = "Earth"
         label.font = .systemFont(ofSize: 18, weight: .light)
         return label
@@ -79,23 +80,29 @@ final class RMCharacterInfoCollectionViewCell: UICollectionViewCell {
             
             valueLabel.leftAnchor.constraint(equalTo: iconImageView.rightAnchor, constant: 10),
             valueLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -10),
-            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 35),
-            valueLabel.heightAnchor.constraint(equalToConstant:30)
+            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            valueLabel.bottomAnchor.constraint(equalTo: titleContainerView.topAnchor)
             
         ])
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-//        valueLabel.text = nil
-//        titleLable.text = nil
-//        iconImageView.image = nil
+        valueLabel.text = nil
+        titleLable.text = nil
+        iconImageView.image = nil
+        iconImageView.tintColor = .label
+        titleLable.tintColor = .label
+        
     }
     
     
     public func configure(with viewModel: RMCharacterInfoCollectionViewCellViewModel){
-        
+        titleLable.text = viewModel.title
+        valueLabel.text = viewModel.displayValue
+        iconImageView.image = viewModel.iconImage
+        iconImageView.tintColor = viewModel.tintColor
+        titleLable.textColor = viewModel.tintColor
     }
     
-
 }
